@@ -9,7 +9,10 @@ class squadra extends Model
     //
    protected $fillable = [
         'nome',
-        // In futuro, se dovessi creare una squadra specificando anche
-        // i punti, dovresti aggiungere 'punti' a questo array, ecc.
+        'punti',
+        'partite_giocate',
+        'vittorie',
+        'pareggi',
+        'sconfitte',
     ];
 }
