@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->date('data_esame');
+            $table->unsignedInteger('matricola')->unique();
+            $table->string('cognome');
+            $table->string('nome');
+            $table->integer('voto');
             $table->timestamps();
         });
     }

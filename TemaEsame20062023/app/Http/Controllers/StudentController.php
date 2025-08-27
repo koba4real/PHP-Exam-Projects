@@ -5,43 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index()
     {
+        $first = Student::orderBy('id')->first();
+
         return view('student', [
-            'students' => Student::all()
+            'studente' => $first,
+            'is_first' => true,
+            'is_last' => Student::orderBy('id', 'desc')->first()->id === $first->id,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
-    }
+        $studente = Student::findOrFail($id);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreStudentRequest $request)
-    {
-        //
-    }
+        $isFirst = (Student::orderBy('id')->first()->id === $studente->id);
+        $isLast  = (Student::orderBy('id', 'desc')->first()->id === $studente->id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
-    {
-        //
+        return response()->json([
+            'html' => view('record_detail', [
+                'studente' => $studente,
+                'is_first' => $isFirst,
+                'is_last'  => $isLast,
+            ])->render(),
+            'current_id' => $studente->id,
+            'is_first'   => $isFirst,
+            'is_last'    => $isLast,
+        ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
