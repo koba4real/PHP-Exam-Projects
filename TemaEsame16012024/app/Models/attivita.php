@@ -9,4 +9,10 @@ class attivita extends Model
 {
     /** @use HasFactory<\Database\Factories\AttivitaFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'titolo',
+        'descrizione',
+        'completato',
+    ];
 }
