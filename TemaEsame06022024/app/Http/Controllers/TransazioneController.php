@@ -60,8 +60,10 @@ class TransazioneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transazione $transazione)
+    public function destroy($id)
     {
-        //
+        $transazione = Transazione::findOrFail($id);
+        $transazione->delete();
+        return redirect()->route('transazioni.index')->with('success', 'Transazione eliminata con successo.');
     }
 }
