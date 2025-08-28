@@ -9,4 +9,11 @@ class Transazione extends Model
 {
     /** @use HasFactory<\Database\Factories\TransazioneFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'descrizione',
+        'importo',
+        'data',
+        'tipo',
+    ];
 }

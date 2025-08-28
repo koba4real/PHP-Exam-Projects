@@ -15,6 +15,7 @@
     <div class="container mt-5">
         <h1>Elenco delle Transazioni</h1>
         <form id="transazioni">
+            <a href="{{ route('transazioni.create') }}" class="btn btn-success mb-3">Aggiungi Transazione</a>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -43,7 +44,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary btn-sm">Modifica</button>
+                                    <a href="{{ route('transazioni.edit', $transazione->id) }}" class="btn btn-primary btn-sm">Modifica</a>
                                 </td>
                             </tr>
                     @endforeach
