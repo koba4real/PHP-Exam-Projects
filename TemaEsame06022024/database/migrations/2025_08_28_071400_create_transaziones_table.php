@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('transaziones', function (Blueprint $table) {
             $table->id();
+            $table->double('importo');
+            $table->string('descrizione');
+            $table->date('data');
+            $table->boolean('tipo’')->default(false);//(spesa o entrata).
             $table->timestamps();
         });
     }
