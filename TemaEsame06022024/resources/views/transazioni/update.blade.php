@@ -9,20 +9,29 @@
 <body>
     <div class="container mt-5">
         <h1>update Transazione</h1>
-        <form action="{{ route('transazioni.update', $transazione->id) }}" method="POST">
+        <form id="transazioneForm" action="{{ route('transazioni.update', $transazione->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="descrizione" class="form-label">Descrizione</label>
                 <input type="text" class="form-control" id="descrizione" name="descrizione"  value="{{ old('descrizione', $transazione->descrizione) }}" required>
+                <div class="invalid-feedback">
+                    La descrizione è obbligatoria.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="importo" class="form-label">Importo</label>
-                <input type="number" class="form-control" id="importo" name="importo" value="{{ old('importo', $transazione->importo) }}" required>
+                <input type="number" class="form-control" id="importo" name="importo" value="{{ old('importo', $transazione->importo) }}" required step="0.01">
+                <div class="invalid-feedback">
+                    L'importo è obbligatorio.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="data" class="form-label">Data</label>
                 <input type="date" class="form-control" id="data" name="data" value="{{ old('data', $transazione->data) }}" required>
+                <div class="invalid-feedback">
+                    La data è obbligatoria.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="tipo" class="form-label">Tipo</label>
@@ -34,9 +43,50 @@
                             <option value="Spesa" {{ old('tipo', $transazione->tipo) === 'Spesa' ? 'selected' : '' }}>Spesa</option>
                             <option value="Entrata" {{ old('tipo', $transazione->tipo) === 'Entrata' ? 'selected' : '' }}>Entrata</option>
                 </select>
+                <div class="invalid-feedback">
+                    Il tipo di transazione è obbligatorio.
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiorna Transazione</button>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            const form = document.getElementById('transazioneForm');
+            const descrizioneInput = document.getElementById('descrizione');
+            const importoInput = document.getElementById('importo');
+            const dataInput = document.getElementById('data');
+            const tipoSelect = document.getElementById('tipo');
+
+            $('#transazioneForm').on('submit', function(event) {
+                let isValid=true;
+
+                // Resetting previous validation states
+                descrizioneInput.classList.remove('is-invalid');
+                importoInput.classList.remove('is-invalid');
+                dataInput.classList.remove('is-invalid');
+                tipoSelect.classList.remove('is-invalid');
+                // l'importo deve essere un numero con due cifre decimali (es. 123.45)
+                const importoRe = /^\d+(\.\d{2})$/;
+                const importoVal = importoInput.value.trim();
+
+
+                if(descrizioneInput.value.trim() === '') {
+                    descrizioneInput.classList.add('is-invalid');
+                    isValid = false;
+                } 
+                if (!importoRe.test(importoVal)|| isNaN(importoVal)) {
+                    importoInput.classList.add('is-invalid');
+                    isValid = false;
+                } 
+
+                if(isValid) {
+                    form.submit();
+                } else {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
