@@ -16,7 +16,7 @@ return new class extends Migration
             $table->double('importo');
             $table->string('descrizione');
             $table->date('data');
-            $table->boolean('tipo’')->default(false);//(spesa o entrata).
+            $table->enum('tipo', ['Spesa', 'Entrata']);
             $table->timestamps();
         });
     }
