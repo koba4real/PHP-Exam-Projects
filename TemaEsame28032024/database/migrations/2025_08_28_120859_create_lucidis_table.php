@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('lucidis', function (Blueprint $table) {
             $table->id();
+            $table->string('titolo');
+            $table->string('file_path');
+            $table->text('commento')->nullable();
+             $table->boolean('is_public')->default(false); // Un interruttore "Visibile a tutti" (spento di default).
             $table->timestamps();
         });
     }

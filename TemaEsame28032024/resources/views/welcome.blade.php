@@ -20,9 +20,21 @@
         @endif
     </head>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+            
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
+                    
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
@@ -30,6 +42,7 @@
                         >
                             Dashboard
                         </a>
+                        
                     @else
                         <a
                             href="{{ route('login') }}"
@@ -114,6 +127,16 @@
                         <li>
                             <a href="https://cloud.laravel.com" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
                                 Deploy now
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lucidis.index') }}" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
+                                View Professor Area
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('lucidis.show') }}" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
+                                View students Area
                             </a>
                         </li>
                     </ul>
